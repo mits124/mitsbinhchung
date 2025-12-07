@@ -764,11 +764,14 @@ main {
     color: var(--red-color);
     font-size: 0.9rem;
     padding-right: 10px;
+    width: 85px;
+    margin-right: 10px;
 }
 
 .sub-desc {
     font-size: 0.95rem;
     color: #444;
+    left: 0;
 }
 
 .sub-desc strong {
@@ -814,6 +817,12 @@ main {
     
     #time-line h1 { 
         font-size: 1.6rem; 
+    }
+    .sub-date {
+        font-size: 0.80rem;
+    }
+    .sub-desc {
+        font-size: 13px;
     }
 }
 
