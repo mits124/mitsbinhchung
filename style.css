@@ -1157,6 +1157,7 @@ main {
         gap: 0 !important;
         position: relative !important;
         width: 350px !important;
+        right: 10px !important;
     }
 
     .slide-number-chinh-uy {
@@ -1181,6 +1182,12 @@ main {
         margin-bottom: 15px !important;
         margin-top: 0 !important;
     }
+    .slide-number-chinh-uy {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 14px !important;
+        right: 50px !important;
+    }
 
     /* INFO ITEMS - LAYOUT DỌC */
     .info-item-chinh-uy {
@@ -1188,7 +1195,7 @@ main {
         flex-direction: column !important;
         align-items: flex-start !important;
         gap: 3px !important;
-        padding: 8px 0 !important;
+        padding: 8px 20px !important;
         margin-bottom: 6px !important;
         border-bottom: 1px solid #eee !important;
     }
@@ -1213,7 +1220,7 @@ main {
 
     /* VALUE */
     .info-value-chinh-uy {
-        width: 100% !important;
+        width: 87% !important;
         max-width: 100% !important;
         text-align: left !important;
         font-size: 15px !important;
@@ -1409,7 +1416,7 @@ main {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    width: 350px;
+    width: 370px;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -1426,7 +1433,7 @@ main {
 }
 
 .slide-content-tu-lenh {
-    padding: 25px;
+    padding: 15px;
     text-align: center;
 }
 
@@ -1484,13 +1491,22 @@ main {
     min-width: 100px;
     text-align: left;
 }
+.info-wrap-tu-lenh {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+}
 
 .info-value-tu-lenh {
     color: #555;
     font-size: 14px;
-    text-align: right;
+    text-align: left;
     flex: 1;
     font-family: var(--font-secondary);
+    max-width: 155px;
+    right: 0;
+
 }
 
 .rank-badge-tu-lenh {
@@ -1621,7 +1637,9 @@ main {
         background: white !important;
         border-radius: 16px !important;
         box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
+
     }
+
 
     /* ===== ẢNH CỐ ĐỊNH ===== */
     .slide-image-tu-lenh {
@@ -1633,7 +1651,7 @@ main {
 
     /* ===== CONTENT AREA ===== */
     .slide-content-tu-lenh {
-        padding: 18px 15px !important;
+        padding: 18px 20px !important;
         flex: 1 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -1646,7 +1664,7 @@ main {
         height: 30px !important;
         font-size: 14px !important;
         top: 10px !important;
-        right: 10px !important;
+        right: 50px !important;
     }
 
     /* ===== TÊN ===== */
@@ -1695,7 +1713,7 @@ main {
 
     /* ===== VALUE - FIX CHỒNG CHỮ ===== */
     .info-value-tu-lenh {
-        width: 100% !important;
+        width: 87% !important;
         max-width: 100% !important;
         text-align: left !important;
         font-size: 15px !important;
@@ -1710,6 +1728,9 @@ main {
         overflow-wrap: break-word !important;
         white-space: normal !important;
         display: block !important;
+    }
+    .info-wrap-tu-lenh {
+        width: 87% !important;
     }
 
     /* ===== BADGE ===== */
@@ -1791,7 +1812,9 @@ main {
         width: 28px;
         height: 28px;
         font-size: 13px;
+
     }
+    
 }
 /* thành tựu */
 
@@ -2163,7 +2186,217 @@ main {
             .achievement-card:not(.active) {
                 display: none;
             }
+            
         }
+
+        /* xe khi tai */
+        /* =========================================
+   6. MILITARY ITEMS (Formerly Digital)
+   ========================================= */
+.military-items-section {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.military-items-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, rgba(140, 16, 7, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(140, 16, 7, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+}
+
+.military-items-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.military-items-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.military-items-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--red-color);
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.military-items-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--red-color);
+    border-radius: 2px;
+}
+
+.military-items-intro {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+    max-width: 900px;
+    margin: 30px auto 0;
+    padding: 0 20px;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* Tech Card Styles (Kept class name generic as requested to only change section classes) */
+.tech-card {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.tech-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--red-color), #d32f2f);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.tech-card:hover::before {
+    transform: scaleX(1);
+}
+
+.tech-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(140, 16, 7, 0.15);
+}
+
+.tech-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-icon {
+    width: 100%;
+    height: 250px;
+    border-radius: 16px 16px 0 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tech-card:hover .card-icon {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.card-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.card-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(140, 16, 7, 0.08);
+    z-index: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .military-items-title {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .military-items-section {
+        padding: 50px 15px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .military-items-title {
+        font-size: 32px;
+    }
+
+    .military-items-intro {
+        font-size: 16px;
+    }
+
+    .tech-card {
+        height: auto; /* Allow auto height on mobile */
+    }
+
+    .card-icon {
+        height: 200px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .card-description {
+        font-size: 15px;
+    }
+}
 
         /* chuyendoiso */
 
@@ -2442,7 +2675,421 @@ main {
             gap: 20px;
         }
 }
-/* footer */
+
+/* 2. EQUIPMENT SECTION STYLES
+=========================================  */
+        .equipment-section {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle grid pattern background (Consistent with Digital Section) */
+        .equipment-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(90deg, rgba(140, 16, 7, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(140, 16, 7, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .equipment-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Header Styles --- */
+        .equipment-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .equipment-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--red-color);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            font-family: var(--font-primary);
+        }
+
+        .equipment-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--red-color);
+            border-radius: 2px;
+        }
+
+        /* --- Filter Menu (Tab System) --- */
+        .equipment-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #ccc;
+            color: #666;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-secondary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--red-color);
+            color: var(--red-color);
+        }
+
+        .filter-btn.active {
+            background-color: var(--red-color);
+            border-color: var(--red-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(140, 16, 7, 0.3);
+        }
+
+        /* --- Equipment Grid --- */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Columns Desktop */
+            gap: 30px;
+        }
+
+        /* --- Equipment Card (Design Consistency) --- */
+        .eq-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent; /* Prepare for hover border */
+            
+            /* Initial State for Animation */
+            opacity: 0;
+            transform: translateY(30px);
+            display: flex; /* Flex layout for card structure */
+            flex-direction: column;
+        }
+
+        .eq-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover Effect "Lift Up" */
+        .eq-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--red-color); /* Subtle red border on hover */
+        }
+
+        /* Top Progress Bar Effect (Visual Flair from Reference) */
+        .eq-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--red-color), #d32f2f);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+        .eq-card:hover::before { transform: scaleX(1); }
+
+        /* Card Image Area */
+        .eq-card-image {
+            width: 100%;
+            height: 240px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eq-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .eq-card:hover .eq-card-image img {
+            transform: scale(1.05);
+        }
+
+        /* Origin Badge */
+        .origin-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Card Content */
+        .eq-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .eq-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--red-color);
+            margin-bottom: 5px;
+            font-family: var(--font-primary);
+        }
+
+        .eq-subtitle {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .eq-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Filter Hidden State (for JS) */
+        .eq-card.hidden {
+            display: none;
+        }
+
+        /* --- Responsive Breakpoints --- */
+        @media (max-width: 1024px) {
+            .equipment-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 Columns Tablet */
+            }
+            .equipment-title { font-size: 36px; }
+        }
+
+        @media (max-width: 768px) {
+            .equipment-grid {
+                grid-template-columns: 1fr; /* 1 Column Mobile */
+            }
+            .equipment-title { font-size: 28px; }
+            .equipment-section { padding: 50px 15px; }
+            .filter-btn {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        /* AHLLVTND */
+
+        .hof-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        .hof-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hof-title {
+            font-size: 2.5rem;
+            color: var(--red-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hof-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hof-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* =========================================
+           3. COLUMN & LIST STYLES
+           ========================================= */
+        .hof-column {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .col-header {
+            border-bottom: 3px solid var(--red-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--red-color);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .hof-list {
+            list-style: none;
+            counter-reset: hof-counter;
+            padding: 0;
+            margin: 0;
+        }
+
+        .hof-item {
+            position: relative;
+            padding: 15px 0 15px 40px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1rem;
+            color: #444;
+            transition: background-color 0.2s;
+        }
+
+        /* Custom Numbering */
+        .hof-item::before {
+            counter-increment: hof-counter;
+            content: counter(hof-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 15px;
+            font-weight: 800;
+            color: var(--red-color);
+            font-size: 1.1rem;
+            width: 30px;
+        }
+
+        .hof-item:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* Hidden State Class */
+        .hof-item.hidden {
+            display: none;
+        }
+
+        /* =========================================
+        4. CONTROLS AREA
+           ========================================= */
+        .control-area {
+            margin-top: 25px;
+            text-align: center;
+            padding-top: 10px;
+            border-top: 2px dashed #eee;
+        }
+
+        .counter-text {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Primary Button (Show More) */
+        .btn-primary {
+            background-color: var(--red-color);
+            color: white;
+            border: 1px solid var(--red-color);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #6d0c05;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(140, 16, 7, 0.2);
+        }
+
+        /* Secondary Button (Show Less) */
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: var(--red-color);
+            border: 1px solid var(--red-color);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #fff5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Utility to hide buttons completely when not needed */
+        .d-none {
+            display: none !important;
+        }
+
+        /* =========================================
+        5. RESPONSIVE
+           ========================================= */
+        @media (max-width: 768px) {
+            .hof-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hof-column {
+                padding: 20px;
+            }
+        }
+
+        /* footer */
 .footer {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             padding: 60px 20px 40px;

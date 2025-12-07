@@ -399,3 +399,475 @@ document.querySelectorAll('.tech-card').forEach(card => {
     });
 });
 
+// ============= EQUIPMENT SECTION ANIMATION =============
+document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. FILTERING LOGIC
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.eq-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active to clicked
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    cards.forEach(card => {
+                        // Reset animation for visual effect on filter change
+                        card.classList.remove('animate'); 
+                        
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.classList.remove('hidden');
+                            // Trigger reflow to restart animation
+                            void card.offsetWidth; 
+                            card.classList.add('animate');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // 2. SCROLL ANIMATION (OBSERVER)
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.getAttribute('data-delay') || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('animate');
+                        }, delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+
+
+        // ============ AHLLVTND =============
+
+    const collectivesData = [
+            "Tiểu đoàn Công binh 25, Quân khu 4. Được phong tặng ngày 1 tháng 1 năm 1967.",
+            "Tiểu đoàn Công binh 25 thuộc Binh trạm 1 (sau là Binh trạm 31). Được phong tặng ngày 22 tháng 12 năm 1967.",
+            "Đại đội 4, Trung đoàn Công binh 7, Bộ Tư lệnh Công binh. Được phong tặng lần thứ nhất ngày 1 tháng 1 năm 1967.",
+            "Đại đội Công binh 2 thuộc Tiểu đoàn Công binh 31, Binh trạm 32, Bộ Tư lệnh 559. Được phong tặng ngày 18 tháng 6 năm 1969.",
+            "Đại đội Công binh 16, Binh trạm 16, Bộ Tư lệnh 559. Được phong tặng ngày 18 tháng 6 năm 1969.",
+            "Đại đội Công binh 1, Bộ đội địa phương tỉnh Quảng Đà. Được phong tặng ngày 20 tháng 12 năm 1969.",
+            "Đại đội 2, Tiểu đoàn Công binh 27 (nay thuộc Lữ đoàn Công binh 414) Quân khu 4. Được phong tặng ngày 22 tháng 12 năm 1969.",
+            "Tiểu đoàn Công binh 33, Binh trạm 32, Bộ Tư lệnh 559. Được phong tặng ngày 22 tháng 12 năm 1969.",
+            "Đại đội 1, Trung đoàn 7, Bộ Tư lệnh Công binh (nay thuộc Trung đoàn Công binh 414). Được phong tặng ngày 22 tháng 12 năm 1969.",
+            "Đại đội Công binh Đặc công nước tỉnh Cần Thơ. Được phong tặng năm 1969.",
+            "Đại đội 12, Trung đoàn 217, Bộ Tư lệnh Công binh. Được phong tặng ngày 25 tháng 8 năm 1970.",
+            "Trung đoàn 7, Bộ Tư lệnh Công binh. Được phong tặng ngày 25 tháng 8 năm 1970 (lần thứ nhất).",
+            "Đại đội Công binh 1, Bắc Quảng Trị. Được phong tặng ngày 25 tháng 8 năm 1970.",
+            "Tiểu đoàn Công binh 2, Binh trạm 12, Bộ Tư lệnh 559. Được phong tặng ngày 25 tháng 8 năm 1970.",
+            "Đại đội Công binh 11, Tiểu đoàn 75, Binh trạm 41, Bộ Tư lệnh 559. Được phong tặng ngày 25 tháng 8 năm 1970.",
+            "Tiểu đoàn Công binh 35, Binh trạm 33, Bộ Tư lệnh 559. Được phong tặng ngày 1 tháng 10 năm 1971.",
+            "Đại đội Công binh 1, Bộ đội địa phương tỉnh Quảng Đà. Được phong tặng ngày 19 tháng 5 năm 1972 (lần thứ hai).",
+            "Tiểu đoàn 2, Trung đoàn 229, Bộ Tư lệnh Công binh. Được phong tặng ngày 20 tháng 12 năm 1972.",
+            "Trung đoàn Công binh 4, Sư đoàn 470, Bộ Tư lệnh 559. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Trung đoàn 14, Bộ Tư lệnh 559. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Trung đoàn 531, Bộ Tư lệnh 559. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Trung đoàn 35, Sư đoàn 472, Bộ Tư lệnh 559. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Trung đoàn 542, Sư đoàn 473, Bộ Tư lệnh 559. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Đại đội 2, Tiểu đoàn 25, Trung đoàn 550, Quân đoàn 4. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Đại đội 19, Bộ đội địa phương tỉnh Quảng Nam. Được phong tặng ngày 3 tháng 6 năm 1976.",
+            "Đại đội Khảo sát Công binh 1. Được phong tặng ngày 20 tháng 10 năm 1976.",
+            "Trung đoàn 217, Bộ Tư lệnh 559. Được phong tặng ngày 20 tháng 10 năm 1976.",
+            "Đại đội 8, Trung đoàn 131, Hải quân. Được phong tặng ngày 20 tháng 10 năm 1976.",
+            "Đại đội 2, Tiểu đoàn 4, Lữ đoàn 414, Quân khu 4. Được phong tặng ngày 20 tháng 10 năm 1976.",
+            "Đại đội 1, Trung đoàn 976, Bộ Tư lệnh 559. Được phong tặng ngày 20 tháng 10 năm 1976.",
+            "Binh chủng Công binh. Được phong tặng ngày 20 tháng 10 năm 1976.",
+            "Lữ đoàn 299, Quân đoàn 1. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Trung đoàn 219, Quân đoàn 2. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Trung đoàn 550, Quân đoàn 4. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Trung đoàn 513, Quân khu 3. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Trung đoàn 6, Binh đoàn 12. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Trung đoàn 509, Binh đoàn 12. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Tiểu đoàn 25, Sư đoàn 320. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Tiểu đoàn 25, Sư đoàn 5. Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Tiểu đoàn 25, Sư đoàn 302 (Mặt trận 479). Được phong tặng ngày 29 tháng 8 năm 1985.",
+            "Trung đoàn 280, Quân khu 5. Được phong tặng ngày 30 tháng 9 năm 1989.",
+            "Tiểu đoàn 15, Sư đoàn 307, Quân khu 5. Được phong tặng ngày 30 tháng 9 năm 1989.",
+            "Trung đoàn 131, Hải quân. Được phong tặng ngày 30 tháng 9 năm 1989.",
+            "Đại đội 8, Tiểu đoàn 3, Lữ đoàn 229, Bộ Tư lệnh Công binh. Được phong tặng ngày 13 tháng 12 năm 1989.",
+            "Trung đoàn 83, Hải quân. Được phong tặng ngày 20 tháng 12 năm 1994 (lần thứ hai).",
+            "Lữ đoàn 513, Quân khu 3. Được phong tặng ngày 20 tháng 12 năm 1994 (lần thứ hai).",
+            "Lữ đoàn 414, Quân khu 4. Được phong tặng ngày 31 tháng 7 năm 1998.",
+            "Lữ đoàn 543, Quân khu 2. Được phong tặng ngày 31 tháng 7 năm 1998.",
+            "Tiểu đoàn 25, Lữ đoàn 414, Quân khu 4. Được phong tặng ngày 31 tháng 7 năm 1998.",
+            "Lữ đoàn 239, Bộ Tư lệnh Công binh. Được phong tặng ngày 31 tháng 7 năm 1998.",
+            "Lữ đoàn 575, Quân khu 1. Được phong tặng ngày 11 tháng 6 năm 1999.",
+            "Tiểu đoàn Vật cản 93, Bộ Tư lệnh Công binh. Được phong tặng ngày 11 tháng 6 năm 1999.",
+            "Tiểu đoàn 1, Lữ đoàn 229, Bộ Tư lệnh Công binh. Được phong tặng ngày 12 tháng 12 năm 2000.",
+            "Trung đoàn Bảo quản Công trình 72, Bộ Tư lệnh Công binh. Được phong tặng ngày 12 tháng 12 năm 2000.",
+            "Lữ đoàn 28, Phòng không - Không quân. Được phong tặng ngày 12 tháng 12 năm 2000.",
+            "Lữ đoàn 270, Quân khu 5. Được phong tặng ngày 12 tháng 12 năm 2000.",
+            "Tiểu đoàn 27, Trung đoàn 293, Bộ Tư lệnh Công binh. Được phong tặng ngày 12 tháng 12 năm 2000.",
+            "Trung đoàn 7, Quân đoàn 3. Được phong tặng ngày 13 tháng 1 năm 2003 (lần thứ ba).",
+            "Tiểu đoàn 17, Sư đoàn 316, Quân khu 2. Được phong tặng ngày 13 tháng 1 năm 2003.",
+            "Lữ đoàn 25, Quân khu 9. Được phong tặng ngày 13 tháng 1 năm 2003.",
+            "Tiểu đoàn 25, Lữ đoàn 513, Quân khu 3. Được phong tặng ngày 22 tháng 12 năm 2004.",
+            "Phòng Công trình, Bộ Tư lệnh Công binh. Được phong tặng ngày 23 tháng 5 năm 2005.",
+            "Đại đội Công binh tỉnh Phú Yên. Được phong tặng ngày 24 tháng 6 năm 2005.",
+            "Trung tâm Công nghệ xử lý Bom mìn (BOMICEN). Tuyên dương Anh hùng LLVTND thời kỳ đổi mới ngày 21 tháng 12 năm 2005.",
+            "Trung tâm Công nghệ xử lý bom mìn. Được phong tặng ngày 21 tháng 12 năm 2005.",
+            "Trường Sĩ quan Công binh. Được phong tặng ngày 13 tháng 3 năm 2008.",
+            "Lữ đoàn 279, Bộ Tư lệnh Công binh. Được phong tặng ngày 22 tháng 12 năm 2009.",
+            "Binh chủng Công binh. Được phong tặng ngày 13 tháng 12 năm 2013 (lần thứ hai).",
+            "Lữ đoàn 249, Bộ Tư lệnh Công binh. Được phong tặng ngày 21/8/2025 (lần thứ 3)."
+        ];
+
+        const individualsData = [
+            "31/8/1955 – Trần Văn Chuông",
+            "31/8/1955 – Bùi Chất",
+            "31/8/1955 – Chu Văn Khâm",
+            "31/8/1955 – Võ Văn Ngồm",
+            "31/8/1955 – Phan Tư",
+            "07/5/1956 – Hoàng Văn Phác",
+            "07/5/1956 – Trần Hiền Quang",
+            "07/5/1956 – Lưu Viết Thoạng",
+            "07/5/1956 – Nguyễn Văn Thậm",
+            "05/5/1965 – Hồ Văn Bé",
+            "01/01/1967 – Hoàng Văn Nghiên",
+            "01/01/1967 – Cao Văn Khang",
+            "01/01/1967 – Nông Văn Việt",
+            "22/12/1969 – Trần Ngọc Mật",
+            "18/6/1969 – Cao Tất Đắc",
+            "22/12/1969 – Vũ Tiến Đề",
+            "22/12/1969 – Tô Quang Lập",
+            "23/11/1969 – Bùi Ngọc Dương",
+            "01/01/1967 – Nguyễn Văn Bích",
+            "15/02/1970 – Nguyễn Văn Hùng",
+            "15/02/1970 – Nguyễn Hữu Quang",
+            "05/9/1970 – Lâm Tương",
+            "25/8/1970 – Nông Văn Nghi",
+            "25/8/1970 – Nguyễn Văn Thân",
+            "25/8/1970 – Ma Văn Viên",
+            "25/8/1970 – Nguyễn Văn Thoát",
+            "25/8/1970 – Nguyễn Ngọc Sâm",
+            "01/10/1971 – Hoàng Hữu Thanh",
+            "20/9/1971 – Trịnh Tố Tâm",
+            "01/10/1971 – Lê Hữu Hành",
+            "01/10/1971 – Hồ Thị Cảnh",
+            "23/9/1973 – Cao Văn Hậu",
+            "11/01/1973 – Nguyễn Bá Tòng",
+            "31/12/1973 – Hoàng Quang Tính",
+            "31/12/1973 – Phạm Văn Cờ",
+            "31/12/1973 – Nguyễn Viết Hồng",
+            "12/9/1975 – Lê Minh Trung",
+            "15/01/1976 – Lê Công Tiến",
+            "15/01/1976 – Ngô Xuân Thu",
+            "15/1/1976 – Nguyễn Văn Tư",
+            "03/6/1976 – Nguyễn Văn Tửu",
+            "15/01/1976 – Trương Văn Biêng",
+            "15/01/1976 – Lê Huy Hoàng",
+            "06/11/1978 – Nguyễn Thị Nhạ",
+            "06/11/1978 – Trần Kim Xuân",
+            "06/11/1978 – Nguyễn Xuân Hinh",
+            "06/11/1978 – Trần Văn Nuôi",
+            "06/11/1978 – Đoàn Bường",
+            "06/11/1978 – Võ Thị Huy",
+            "06/11/1978 – Lê Duy Chin",
+            "06/11/1978 – Mai Văn Ánh",
+            "06/11/1978 – Ngô Quang Điền",
+            "06/11/1978 – Đặng Công Nhân",
+            "06/11/1978 – Lê Văn Trung",
+            "06/11/1978 – Hà Hồng Hổ",
+            "06/11/1978 – Cầm Bá Trùng",
+            "06/11/1978 – Trần Văn Lâm",
+            "20/12/1979 – Trần Ngọc Sơn",
+            "20/12/1979 – Nguyễn Nho Bông",
+            "20/12/1979 – Vũ Duy Vang",
+            "20/12/1979 – Vũ Trọng Cường",
+            "20/12/1979 – Tông Văn Kim",
+            "25/01/1983 – Dương Đức Thùng",
+            "29/4/1985 – Nguyễn Quốc Thất",
+            "13/12/1989 – Nguyễn Văn Lanh",
+            "20/12/1994 – Trương Thị Hoa",
+            "23/02/2010 – Nguyễn Văn Bạch",
+            "23/02/2010 – Hồ Văn Ngà",
+            "28/5/2010 – Đinh Quốc Phòng",
+            "27/4/2012 – Ninh Xuân Trường",
+            "26/7/2012 – Lại Ngọc Ngợi",
+            "06/12/2012 – Nguyễn Hữu Tể",
+            "09/10/2014 – Nguyễn Thành Chung",
+            "09/10/2014 – Du Long Thành",
+            "09/10/2014 – Nguyễn Phú Xuyên Khung",
+            "09/10/2014 – Đỗ Vinh Thăng",
+            "10/8/2015 – Hoàng Đăng Vinh",
+            "10/8/2015 – Phan Đức Sử",
+            "10/8/2015 – Đào Khắc Nhạn",
+            "26/4/2018 – Võ Công Đích",
+            "Phan Tư - Đại đội trưởng, Trung đoàn 555, Cục Công binh. Phong tặng 31/8/1955.",
+            "Chu Văn Khâm - Trung đội phó, Đại đội 56, Tiểu đoàn 206. Phong tặng 31/8/1955.",
+            "Võ Văn Ngôm - Tiểu đội phó, Đại đội Công binh Mỹ Tho. Phong tặng 31/8/1955.",
+            "Bùi Chát - Trung đội trưởng Công binh, Trung đoàn 93. Phong tặng 31/8/1955.",
+            "Hoàng Văn Phác - Đại đội phó, Trung đoàn 333. Phong tặng 7/5/1956.",
+            "Lưu Viết Thoảng - Chính trị viên phó Đại đội. Phong tặng 7/5/1956.",
+            "Trần Hiền Quang - Đại đội trưởng Công binh. Phong tặng 7/5/1956.",
+            "Hồ Văn Bé - 5/5/1965.",
+            "Trần Văn Chuông - 31/8/1965.",
+            "Nông Văn Việt - 1/1/1967.",
+            "Ma Văn Viên - 25/8/1970.",
+            "Trịnh Tố Tâm - 20/9/1971.",
+            "Lê Hữu Hãnh - 1/10/1971.",
+            "Hồ Thị Cảnh - 1/10/1971.",
+            "Nguyễn Việt Hồng - 31/12/1973.",
+            "Hoàng Quang Tích - 31/12/1973.",
+            "Phạm Văn Cờ - 31/12/1973.",
+            "Lê Minh Trung - 12/9/1975.",
+            "Ngô Xuân Thu - 15/1/1976.",
+            "Lê Huy Hoàng - 15/1/1976.",
+            "Lương Văn Biêng - 15/1/1976.",
+            "Nguyễn Văn Tư - 15/1/1976.",
+            "Nguyễn Văn Tửu - 3/6/1976.",
+            "Nguyễn Văn Lanh - 1989.",
+            "Trương Thị Hoa - 20/12/1994.",
+            "Đỗ Vinh Thăng - 9/10/2014 (truy tặng).",
+            "Nguyễn Phú Xuyên Khung - 21/10/2014 (truy tặng).",
+            "Thiếu tướng Hoàng Kiền (nguyên Tư lệnh Binh chủng) - 30/11/2015."
+        ];
+
+        // =========================================
+        // 2. STATE MANAGEMENT & LOGIC
+        // =========================================
+        
+        // Constants
+        const INITIAL_LIMIT = 10;
+        const STEP_SIZE = 15;
+
+        // Reactive State
+        let state = {
+            collectives: {
+                limit: INITIAL_LIMIT,
+                total: collectivesData.length
+            },
+            individuals: {
+                limit: INITIAL_LIMIT,
+                total: individualsData.length
+            }
+        };
+
+        /**
+         * Initialize Lists on Page Load
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render full list for Collectives but hide items > limit
+            renderFullList('collectives', collectivesData);
+            updateVisibility('collectives');
+
+            // Render full list for Individuals but hide items > limit
+            renderFullList('individuals', individualsData);
+            updateVisibility('individuals');
+        });
+
+        /**
+         * Renders the entire list into the DOM once.
+         * Visibility is handled via CSS classes later.
+         */
+        function renderFullList(type, dataArray) {
+            const listEl = document.getElementById(type + '-list');
+            listEl.innerHTML = ''; // Clear existing
+
+            dataArray.forEach((text, index) => {
+                const li = document.createElement('li');
+                li.className = 'hof-item';
+                li.textContent = text;
+                // Initially hide everything above initial limit
+                if (index >= INITIAL_LIMIT) {
+                    li.classList.add('hidden');
+                }
+                listEl.appendChild(li);
+            });
+        }
+
+        /**
+         * Updates the visibility of items based on current state limit.
+         * Updates Buttons and Counter text.
+         */
+        function updateVisibility(type) {
+            const currentLimit = state[type].limit;
+            const total = state[type].total;
+            const listEl = document.getElementById(type + '-list');
+            const items = listEl.querySelectorAll('.hof-item');
+
+            // 1. Toggle visibility
+            items.forEach((item, index) => {
+                if (index < currentLimit) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // 2. Update Counter Text
+            const counterEl = document.getElementById(type + '-counter');
+            const displaying = Math.min(currentLimit, total);
+            counterEl.textContent = `Đang hiển thị ${displaying}/${total}`;
+
+            // 3. Toggle Buttons
+            const btnMore = document.getElementById(`btn-${type === 'collectives' ? 'col' : 'ind'}-more`);
+            const btnLess = document.getElementById(`btn-${type === 'collectives' ? 'col' : 'ind'}-less`);
+
+            // Show More: Hide if we are showing all items
+            if (currentLimit >= total) {
+                btnMore.classList.add('d-none');
+            } else {
+                btnMore.classList.remove('d-none');
+            }
+
+            // Show Less: Hide if we are at initial state
+            if (currentLimit <= INITIAL_LIMIT) {
+                btnLess.classList.add('d-none');
+            } else {
+                btnLess.classList.remove('d-none');
+            }
+        }
+
+        /**
+         * Handles Button Clicks (More / Less)
+         */
+        function updateList(type, action) {
+            if (action === 'more') {
+                state[type].limit += STEP_SIZE;
+            } else if (action === 'less') {
+                state[type].limit -= STEP_SIZE;
+                // Ensure we never go below initial limit
+                if (state[type].limit < INITIAL_LIMIT) {
+                    state[type].limit = INITIAL_LIMIT;
+                }
+            }
+            updateVisibility(type);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // 1. SELECT DOM ELEMENTS
+    const wrapper = document.querySelector('.achievement-carousel-wrapper');
+    const track = document.querySelector('.achievement-track');
+    const cards = document.querySelectorAll('.achievement-card');
+    const dots = document.querySelectorAll('.achievement-dot');
+    const prevBtn = document.querySelector('.achievement-arrow.prev');
+    const nextBtn = document.querySelector('.achievement-arrow.next');
+    const viewMoreBtns = document.querySelectorAll('.view-more-btn');
+
+    // Safety check: Exit if essential elements are missing
+    if (!wrapper || !track || cards.length === 0) return;
+
+    // 2. STATE MANAGEMENT
+    let currentIndex = 0;
+    const totalItems = cards.length;
+
+    // ==================================================
+    // A. HELPER FUNCTION: RESET/COLLAPSE
+    // ==================================================
+    /**
+     * Resets the layout and content of the currently active card
+     * before switching to a new slide.
+     */
+    function resetCurrentCard() {
+        const currentCard = cards[currentIndex];
+        
+        // 1. Remove expanded class from the specific Card
+        currentCard.classList.remove('expanded');
+
+        // 2. Remove expanded class from the Main Wrapper (resets layout height)
+        wrapper.classList.remove('expanded');
+
+        // 3. Hide the Description
+        const desc = currentCard.querySelector('.achievement-description');
+        if (desc) desc.classList.remove('show');
+
+        // 4. Reset Button State and Text
+        const btn = currentCard.querySelector('.view-more-btn');
+        if (btn) {
+            btn.classList.remove('active');
+            btn.textContent = 'Xem thêm';
+        }
+    }
+
+    // ==================================================
+    // B. NAVIGATION LOGIC (CAROUSEL)
+    // ==================================================
+    function updateCarousel(newIndex) {
+        // Step 1: Auto-collapse the current card before leaving it
+        resetCurrentCard();
+
+        // Remove active class from old card & dot
+        cards[currentIndex].classList.remove('active');
+        if (dots[currentIndex]) dots[currentIndex].classList.remove('active');
+
+        // Step 2: Calculate new index (Looping logic)
+        // (newIndex + totalItems) % totalItems handles both negative and overflow
+        currentIndex = (newIndex + totalItems) % totalItems;
+
+        // Step 3: Activate new card & dot
+        cards[currentIndex].classList.add('active');
+        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
+    }
+
+    // Event Listeners for Navigation
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            updateCarousel(currentIndex + 1);
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            updateCarousel(currentIndex - 1);
+        });
+    }
+
+    // Dots Navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            if (currentIndex !== index) {
+                updateCarousel(index);
+            }
+        });
+    });
+
+    // ==================================================
+    // C. VIEW MORE TOGGLE LOGIC
+    // ==================================================
+    viewMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent bubbling issues
+
+            // Identify context elements
+            const button = e.currentTarget;
+            const card = button.closest('.achievement-card');
+            const description = card.querySelector('.achievement-description');
+
+            // Safety check
+            if (!card || !description) return;
+
+            // 1. Toggle Classes
+            const isExpanding = !description.classList.contains('show');
+            
+            description.classList.toggle('show');      // Show/Hide text
+            button.classList.toggle('active');         // Button style
+            card.classList.toggle('expanded');         // Card height
+            wrapper.classList.toggle('expanded');      // Wrapper layout
+
+            // 2. Update Text
+            if (isExpanding) {
+                button.textContent = 'Thu gọn';
+            } else {
+                button.textContent = 'Xem thêm';
+            }
+        });
+    });
+});
