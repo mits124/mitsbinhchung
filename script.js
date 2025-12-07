@@ -1,0 +1,401 @@
+// Menu
+const menuBtn = document.getElementById('menuBtn');
+const closeBtn = document.getElementById('closeBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+function openMenu() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMenu() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+menuBtn.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && sidebar.classList.contains('open')) {
+        closeMenu();
+    }
+});
+
+// Enhanced Smooth Scroll
+function initSmoothScroll() {
+    const header = document.querySelector('header');
+    const menuLinks = document.querySelectorAll('.menu-items a[href^="#"]');
+    
+    if (!header) return;
+    
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            
+            const target = document.querySelector(href);
+            if (!target) return;
+            
+            closeMenu();
+            
+            setTimeout(() => {
+                const headerHeight = header.offsetHeight;
+                const offset = headerHeight + 0;
+                
+                const targetRect = target.getBoundingClientRect();
+                const targetPosition = targetRect.top + window.pageYOffset - offset;
+                
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 700;
+                let start = null;
+                
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = currentTime - start;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    
+                    const ease = progress < 0.5 
+                        ? 4 * progress * progress * progress 
+                        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                    
+                    window.scrollTo(0, startPosition + distance * ease);
+                    
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    } else {
+                        window.scrollTo(0, targetPosition);
+                    }
+                }
+                
+                requestAnimationFrame(animation);
+                
+                this.style.transition = 'opacity 0.3s ease';
+                this.style.opacity = '0.6';
+                setTimeout(() => {
+                    this.style.opacity = '';
+                }, 300);
+                
+            }, 300);
+        });
+    });
+}
+
+initSmoothScroll();
+
+// Video
+document.addEventListener('DOMContentLoaded', function() {
+    const openBtn = document.getElementById('openVideo');
+    const videoOverlay = document.getElementById('videoOverlay');
+    const closeVideoBtn = document.getElementById('closeVideoBtn');
+    const iframe = document.getElementById('videoFrame');
+
+    if (!openBtn || !videoOverlay) return;
+
+    // Mở video
+    openBtn.addEventListener('click', function() {
+        videoOverlay.classList.add('active');
+        videoOverlay.style.display = 'flex';
+    });
+
+    // Đóng video
+    closeVideoBtn.addEventListener('click', function() {
+        videoOverlay.classList.remove('active');
+        videoOverlay.style.display = 'none';
+        // Dừng video bằng cách reload iframe
+        iframe.src = iframe.src;
+    });
+
+    // Đóng khi click ngoài video
+    videoOverlay.addEventListener('click', function(e) {
+        if (e.target === videoOverlay) {
+            videoOverlay.classList.remove('active');
+            videoOverlay.style.display = 'none';
+            // Dừng video bằng cách reload iframe
+            iframe.src = iframe.src;
+        }
+    });
+
+    // Đóng bằng phím Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && videoOverlay.classList.contains('active')) {
+            videoOverlay.classList.remove('active');
+            videoOverlay.style.display = 'none';
+            // Dừng video bằng cách reload iframe
+            iframe.src = iframe.src;
+        }
+    });
+});
+
+// ============= TIMELINE CAROUSEL =============
+function toggleDetails(btn) {
+            const card = btn.closest('.era-card');
+            const spanText = btn.firstChild; // The text node
+            
+            // Toggle active class
+            if (card.classList.contains('active')) {
+                card.classList.remove('active');
+                // Use innerHTML to preserve the chevron span
+                btn.innerHTML = 'Xem chi tiết <span class="chevron">▼</span>';
+                btn.style.backgroundColor = "transparent";
+                btn.style.color = "#8c1007";
+            } else {
+                card.classList.add('active');
+                btn.innerHTML = 'Thu gọn <span class="chevron">▲</span>';
+                btn.style.backgroundColor = "#8c1007";
+                btn.style.color = "white";
+            }
+        }
+
+
+// ============= CHINH-UY CAROUSEL =============
+    const chinhUySection = document.querySelector('.commissar-section-chinh-uy');
+    if (chinhUySection) {
+        const slides = chinhUySection.querySelectorAll('.carousel-slide-chinh-uy');
+        const track = chinhUySection.querySelector('.carousel-track-chinh-uy');
+        const indicatorsContainer = chinhUySection.querySelector('.carousel-indicators-chinh-uy');
+        const prevBtn = chinhUySection.querySelector('.prev-chinh-uy');
+        const nextBtn = chinhUySection.querySelector('.next-chinh-uy');
+        let currentSlideIndex = 0;
+
+        // Create indicators
+        if (indicatorsContainer) {
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('span');
+                indicator.className = 'indicator-chinh-uy';
+                if (index === 0) indicator.classList.add('active-chinh-uy');
+                indicator.addEventListener('click', () => {
+                    currentSlideIndex = index;
+                    updateChinhUyCarousel();
+                });
+                indicatorsContainer.appendChild(indicator);
+            });
+        }
+
+        function updateChinhUyCarousel() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active-chinh-uy', 'prev-chinh-uy', 'next-chinh-uy');
+                
+                if (index === currentSlideIndex) {
+                    slide.classList.add('active-chinh-uy');
+                } else if (index === currentSlideIndex - 1 || (currentSlideIndex === 0 && index === slides.length - 1)) {
+                    slide.classList.add('prev-chinh-uy');
+                } else if (index === currentSlideIndex + 1 || (currentSlideIndex === slides.length - 1 && index === 0)) {
+                    slide.classList.add('next-chinh-uy');
+                }
+            });
+
+            // Update indicators
+            if (indicatorsContainer) {
+                const indicators = indicatorsContainer.querySelectorAll('.indicator-chinh-uy');
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active-chinh-uy', index === currentSlideIndex);
+                });
+            }
+        }
+
+        function nextSlideChinhUy() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            updateChinhUyCarousel();
+        }
+
+        function prevSlideChinhUy() {
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            updateChinhUyCarousel();
+        }
+
+        // Add event listeners to navigation buttons
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                prevSlideChinhUy();
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                nextSlideChinhUy();
+            });
+        }
+
+        // Click on side slides
+        slides.forEach((slide) => {
+            slide.addEventListener('click', (e) => {
+                if (slide.classList.contains('active-chinh-uy')) {
+                    return;
+                }
+                
+                if (slide.classList.contains('prev-chinh-uy')) {
+                    e.stopPropagation();
+                    prevSlideChinhUy();
+                }
+                
+                if (slide.classList.contains('next-chinh-uy')) {
+                    e.stopPropagation();
+                    nextSlideChinhUy();
+                }
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (chinhUySection.getBoundingClientRect().top < window.innerHeight && 
+                chinhUySection.getBoundingClientRect().bottom > 0) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlideChinhUy();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlideChinhUy();
+                }
+            }
+        });
+
+        // Initialize
+        updateChinhUyCarousel();
+    }
+
+    // ============= TƯ LỆNH CAROUSEL =============
+const tuLenhSection = document.querySelector('.commissar-section-tu-lenh');
+if (tuLenhSection) {
+    const slides = tuLenhSection.querySelectorAll('.carousel-slide-tu-lenh');
+    const track = tuLenhSection.querySelector('.carousel-track-tu-lenh');
+    const indicatorsContainer = tuLenhSection.querySelector('.carousel-indicators-tu-lenh');
+    const prevBtn = tuLenhSection.querySelector('.prev-tu-lenh');
+    const nextBtn = tuLenhSection.querySelector('.next-tu-lenh');
+    let currentSlideIndex = 0;
+
+    // Create indicators
+    if (indicatorsContainer) {
+        slides.forEach((_, index) => {
+            const indicator = document.createElement('span');
+            indicator.className = 'indicator-tu-lenh';
+            if (index === 0) indicator.classList.add('active-tu-lenh');
+            indicator.addEventListener('click', () => {
+                currentSlideIndex = index;
+                updateTuLenhCarousel();
+            });
+            indicatorsContainer.appendChild(indicator);
+        });
+    }
+
+    function updateTuLenhCarousel() {
+        slides.forEach((slide, index) => {
+            slide.classList.remove('active-tu-lenh', 'prev-tu-lenh', 'next-tu-lenh');
+            
+            if (index === currentSlideIndex) {
+                slide.classList.add('active-tu-lenh');
+            } else if (index === currentSlideIndex - 1 || (currentSlideIndex === 0 && index === slides.length - 1)) {
+                slide.classList.add('prev-tu-lenh');
+            } else if (index === currentSlideIndex + 1 || (currentSlideIndex === slides.length - 1 && index === 0)) {
+                slide.classList.add('next-tu-lenh');
+            }
+        });
+
+        // Update indicators
+        if (indicatorsContainer) {
+            const indicators = indicatorsContainer.querySelectorAll('.indicator-tu-lenh');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active-tu-lenh', index === currentSlideIndex);
+            });
+        }
+    }
+
+    function nextSlideTuLenh() {
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        updateTuLenhCarousel();
+    }
+
+    function prevSlideTuLenh() {
+        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+        updateTuLenhCarousel();
+    }
+
+    // Add event listeners to navigation buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            prevSlideTuLenh();
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            nextSlideTuLenh();
+        });
+    }
+
+    // Click on side slides
+    slides.forEach((slide) => {
+        slide.addEventListener('click', (e) => {
+            if (slide.classList.contains('active-tu-lenh')) {
+                return;
+            }
+            
+            if (slide.classList.contains('prev-tu-lenh')) {
+                e.stopPropagation();
+                prevSlideTuLenh();
+            }
+            
+            if (slide.classList.contains('next-tu-lenh')) {
+                e.stopPropagation();
+                nextSlideTuLenh();
+            }
+        });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (tuLenhSection.getBoundingClientRect().top < window.innerHeight && 
+            tuLenhSection.getBoundingClientRect().bottom > 0) {
+            if (e.key === 'ArrowLeft') {
+                prevSlideTuLenh();
+            } else if (e.key === 'ArrowRight') {
+                nextSlideTuLenh();
+            }
+        }
+    });
+
+    // Initialize
+    updateTuLenhCarousel();
+}
+
+// ============= CHUYỂN ĐỔI SỐ =============
+const techObserverOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const techObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const delay = entry.target.dataset.delay || 0;
+            setTimeout(() => {
+                entry.target.classList.add('animate');
+            }, delay);
+            techObserver.unobserve(entry.target);
+        }
+    });
+}, techObserverOptions);
+
+document.querySelectorAll('.tech-card').forEach(card => {
+    techObserver.observe(card);
+    
+    card.addEventListener('mouseenter', function() {
+        this.style.borderColor = 'var(--red-color)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.borderColor = 'transparent';
+    });
+});
+
